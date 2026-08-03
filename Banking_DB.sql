@@ -146,3 +146,66 @@ ALTER TABLE Accounts
 ADD CONSTRAINT FK_Accounts_Branches
 FOREIGN KEY (BranchID)
 REFERENCES Branches(BranchID);
+
+use bankingdb; 
+
+INSERT INTO Customers
+(CustomerID, FirstName, LastName, Email, Phone, DateOfBirth)
+VALUES
+(101,'Rahul','Sharma','rahul@gmail.com','9876543210','1998-04-15');
+
+select * from customers;
+
+DESC Accounts;
+
+ALTER TABLE Accounts
+ADD CustomerID INT;
+
+DESC Accounts;
+SELECT * FROM Branches;
+INSERT INTO Branches
+(BranchID, BranchName, BranchAddress, BranchPhone)
+VALUES
+(1,'Thane Branch','Thane West','9876543210');
+SELECT * FROM Branches;
+INSERT INTO Accounts
+(AccountID, CustomerID, AccountType, Balance, BranchID)
+VALUES
+(201,101,'Savings',25000,1);
+
+SET SQL_SAFE_UPDATES = 0;
+
+UPDATE Customers
+SET Phone = '9999999999'
+WHERE CustomerID = 101;
+
+SELECT * FROM Customers
+WHERE CustomerID = 101;
+
+UPDATE Customers
+SET Email='rahul.sharma@gmail.com'
+WHERE CustomerID=101;
+
+SELECT * FROM Customers
+WHERE CustomerID = 101;
+
+DESC Transactions;
+INSERT INTO Transactions
+(TransactionID, TransactionDate, Amount, TransactionType)
+VALUES
+(301,'2025-08-02',5000,'Deposit');
+SELECT * FROM Transactions;
+
+SET SQL_SAFE_UPDATES = 0;
+
+use bankingdb;
+
+DELETE FROM Transactions
+WHERE TransactionID = 301;
+
+SELECT * FROM Transactions;
+
+DELETE FROM Accounts
+WHERE AccountID = 202;
+
+SELECT * FROM Accounts;
