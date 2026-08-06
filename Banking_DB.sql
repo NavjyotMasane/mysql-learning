@@ -278,3 +278,132 @@ SELECT TransactionID,
        Amount,
        AVG(Amount) OVER () AS AverageTransaction
 FROM Transactions;
+  
+  
+use employee;
+select distinct department, gender from employee;
+select distinct gender from employee;
+select distinct age from employee;
+select * from employee where age not in (23,28);
+select * from employee where salary between 40000 AND 60000;
+SELECT * FROM EMPLOYEE WHERE AGE BETWEEN 25 AND 45;
+SELECT * FROM EMPLOYEE WHERE EMPLOYEEID IN (1004,1007,1003,1010);
+
+-- show me all the records of emp
+
+select * from employee where employeeid not in (1004,1007,1003,1010);
+select * from employee
+where fullname like "A%";
+
+select * from employee
+where fullname like "Y%";
+
+select * from employee
+where fullname like "%I%";
+
+select * from employee 
+where fullname like "%L__%";
+
+select * from employee
+where fullname not like "P%";
+
+select * from projects;
+
+select * from projects
+where Employeeid is null;
+
+select * from projects 
+where employeeid is not null; 
+
+select department, count(*) from employee group by department;
+select department, count(*) from employee group by department having count(*)>2;
+
+select state, count(*) from address group by state having state;
+
+use bankingdb; 
+
+SELECT *
+FROM Customers
+WHERE FirstName LIKE 'A%';
+
+SELECT *
+FROM Customers
+WHERE Email LIKE '%gmail%';
+
+SELECT *
+FROM Customers
+WHERE LastName LIKE '%kar';
+
+SELECT *
+FROM Accounts
+WHERE AccountType IN ('Savings', 'Current');
+
+SELECT *
+FROM Transactions
+WHERE TransactionType IN ('Deposit', 'Withdrawal');
+
+
+SELECT *
+FROM Customers
+WHERE CustomerID IN (101,102,105);
+
+SELECT *
+FROM Customers
+ORDER BY LastName ASC;
+
+SELECT *
+FROM Accounts
+ORDER BY Balance DESC;
+
+SELECT *
+FROM Transactions
+ORDER BY TransactionDate DESC;
+
+SELECT *
+FROM Accounts
+ORDER BY Balance DESC
+LIMIT 5;
+
+SELECT *
+FROM Customers
+LIMIT 3;
+
+SELECT *
+FROM Transactions
+LIMIT 5 OFFSET 3;
+
+
+SELECT *
+FROM Accounts
+WHERE AccountType = 'Savings'
+ORDER BY Balance DESC;
+
+SELECT *
+FROM Customers
+WHERE FirstName LIKE 'S%'
+LIMIT 5;
+
+SELECT *
+FROM Transactions
+WHERE TransactionType IN ('Deposit','Withdrawal')
+ORDER BY TransactionDate DESC;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
