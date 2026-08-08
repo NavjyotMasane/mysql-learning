@@ -390,20 +390,91 @@ ORDER BY TransactionDate DESC;
 
 
 
+USE bankingdb;
+CREATE TABLE Voter_list
+(Voter_ID int ,
+Names varchar(30),
+Age int check(Age>=18) );
+desc Voter_list;
+select*from Voter_list;
+insert into Voter_list values
+(20067, "Anuja patil",18);
+
+use employee;
+use employee;
+show tables;
+
+select *, concat(fullname, "-",employeeid) as specific_code from employee;
+select concat("Good","Morning") as Remarks;
+
+select fullname, lower(fullnmae) from employee;
+select fullname, upper(fullname) from employee;
+
+select fullname, replace(fullname, "Mohanty", "Kulakarni" ) as New_Name from employee;
+select * from employee;
+update employee set fullname = "Sambit Kulkarni" where employeeid = 1008;
+update employee set fullname = "Anurag Kulkarni" where employeeid = 1006;
+
+select length("Good Morning");
+select substring("Mary Smith",2,3);
+
+select fullname, substring(fullname, 2,3) as partial,
+length(substring(fullname, 2,3)) as length from employee;
+
+USE bankingdb;
+SELECT * FROM Customers;
+
+use employee;
+select fullname, lower(fullname) from employee;
+
+SELECT
+FirstName,
+UPPER(FirstName) 
+FROM customers;
+
+SELECT
+FirstName,
+LOWER(FirstName) 
+FROM customers;
+
+SELECT FIRSTNAME, length(FIRSTNAME) FROM CUSTOMERS;
+SELECT FIRSTNAME, left(FIRSTNAME,3) FROM CUSTOMERS;
+SELECT concat(FIRSTNAME,LASTNAME) FROM CUSTOMERS;
+SELECT round(1256.75);
+SELECT CEIL(1256.75);
+SELECT floor(1256.75);
+SELECT abs(-2500);
+SELECT mod(25,4);
+SELECT * FROM CUSTOMERS;
+SELECT curdate();
+SELECT now();
+SELECT CUSTOMERID, year(DATEOFBIRTH), now() FROM CUSTOMERS;
+SELECT CUSTOMERID, month(dateofbirth) from customers;
+SELECT CUSTOMERID, datediff(CURDATE(), DATEOFBIRTH) FROM CUSTOMERS;
+SELECT CUSTOMERID, if(year(DATEOFBIRTH) <=1995,'ADULT', 'YOUNG') FROM CUSTOMERS;
+SELECT FIRSTNAME, DATEOFBIRTH, IF(YEAR(DATEOFBIRTH) <=1995, 'ADULT', 'YOUNG') FROM CUSTOMERS;
+SELECT FIRSTNAME, PHONE FROM CUSTOMERS;
+SELECT greatest( 
+'2000-09-20', 
+'1995-06-18',
+'1997-09-12',
+'1993-11-25') AS LATESTBIRTHDATE;
+
+SELECT least(
+'2000-09-20',
+'1995-06-18',
+'1997-09-12',
+'1993-09-12') AS LEASTBIRTHDATE;
+
+SELECT FIRSTNAME, nullif(FIRSTNAME, 'PRIYA') AS RESULT FROM CUSTOMERS;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+SELECT * FROM ACCOUNTS;
+SELECT SUM(BALANCE) AS TOTAL_BALANCE FROM ACCOUNTS;
+SELECT MAX(BALANCE) AS MAX_BALANCE FROM ACCOUNTS;
+select AVG(BALANCE) AS AVG_BALANCE FROM ACCOUNTS;
+SELECT MIN(BALANCE) AS MIN_BALANCE FROM ACCOUNTS;
+SELECT COUNT(*) AS TOTAL_ACCOUNTS FROM ACCOUNTS;
+SELECT AccountType, SUM(Balance) AS TotalBalance FROM ACCOUNTS group by AccountType;
+SELECT AccountType, sum(Balance) as TotalBalance FROM ACCOUNTS group by AccountType  HAVING sum(Balance) >25000;
 
