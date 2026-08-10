@@ -478,3 +478,128 @@ SELECT COUNT(*) AS TOTAL_ACCOUNTS FROM ACCOUNTS;
 SELECT AccountType, SUM(Balance) AS TotalBalance FROM ACCOUNTS group by AccountType;
 SELECT AccountType, sum(Balance) as TotalBalance FROM ACCOUNTS group by AccountType  HAVING sum(Balance) >25000;
 
+use employee;
+SELECT fullname, reverse(fullname) FROM employee;
+
+-- ABS() REMOVES MINUS SIGN FROM A NUMBER
+SELECT abs(-454545);
+SELECT abs(+454545);
+SELECT abs(datediff(enddate,startdate) )
+as duration FROM projects;
+
+-- IT RETURNS  THE REMAINDER AFTER DIVISION
+SELECT mod(12,5);
+
+-- IT GIVES DOWNWARDS VALUE
+SELECT	floor(45.45);
+
+-- IT GIVES UPWARDS VALUE
+SELECT ceil(45.45);
+
+-- IT GIVES NUMBER BASED ON DECIMAL DIGIT GIVEN LIKE 2 SO IT GIVES 2  NUMBER AFTER DECIMAL
+SELECT truncate(45.4545,2);
+
+-- GIVES EXPONENTIAL
+SELECT exp(2);
+
+SELECT POW(12,2);
+
+-- GIVES SQUARE ROOT
+SELECT SQRT(256);
+
+-- GIVES CURRUENT DATE 
+SELECT CURDATE();
+
+-- GIVES YYYY-MM-DD & TIME
+SELECT now();
+
+-- GIVES SYSTEM 
+SELECT sysdate();
+
+-- GIVES LAST DATE OF THE MONTH
+SELECT LAST_DAY(NOW());
+ 
+-- GIVES THE LAST DAY OF THE MONTH
+SELECT LAST_DAY("2024-02-22");
+
+SELECT date_format(NOW(),"%b");
+
+SELECT DATE_FORMAT(NOW(),'%b %d %Y %h:%i %p');
+SELECT DATE_FORMAT(NOW(),'%m-%d-%Y');
+SELECT DATE_FORMAT(NOW(),'%d %b %y');
+SELECT DATEDIFF('2014-11-30','2014-11-29') AS DiffDate;
+SELECT month(now());
+SELECT year(now());
+SELECT avg(SALARY) FROM employee where DEPARTMENT = "IT";
+SELECT COUNT(GENDER) FROM employee;
+SELECT MAX(SALARY) FROM employee WHERE GENDER ="MALE";
+SELECT MIN(SALARY) FROM employee;
+SELECT SUM(SALARY) FROM employee;
+SELECT 
+    age,
+    salary, 
+    RANK() OVER (ORDER BY salary 
+DESC) AS salary_rank 
+FROM employee;
+
+Select
+    LoanID,
+    CustomerID, LoanAmount, RANK() OVER(
+        ORDER BY LoanAmount DESC
+    ) AS LoanRank
+FROM Loans;
+
+SELECT
+    LoanID,
+    CustomerID,
+    LoanAmount,
+    DENSE_RANK() OVER(
+        ORDER BY LoanAmount DESC
+    ) AS DenseRank
+FROM Loans;
+
+SELECT
+    LoanID,
+    CustomerID,
+    LoanAmount,
+    ROW_NUMBER() OVER(
+        ORDER BY LoanAmount DESC
+    ) AS RowNumber
+FROM Loans;
+
+SELECT
+    LoanID,
+    CustomerID,
+    LoanAmount,
+    ROW_NUMBER() OVER(
+        PARTITION BY CustomerID
+        ORDER BY LoanAmount DESC
+    ) AS RowNum
+FROM Loans;
+
+SELECT
+    LoanID, CustomerID,LoanAmount,
+    SUM(LoanAmount) OVER(
+        ORDER BY LoanAmount DESC
+    ) AS RunningTotal
+FROM Loans;
+
+SELECT
+    LoanID,
+    CustomerID,
+    LoanAmount,
+    LAG(LoanAmount) OVER(
+        ORDER BY LoanAmount DESC
+    ) AS PreviousLoanAmount
+FROM Loans;
+
+SELECT
+    LoanID, CustomerID, LoanAmount,
+    LEAD(LoanAmount) OVER(
+        ORDER BY LoanAmount DESC
+    ) AS NextLoanAmount
+FROM Loans;
+
+
+
+
