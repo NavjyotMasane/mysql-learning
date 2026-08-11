@@ -600,6 +600,78 @@ SELECT
     ) AS NextLoanAmount
 FROM Loans;
 
+use employee;
+select employee.employeeid, fullname, city 
+from employee
+employee
+left join 
+address
+on employee.employeeid=address.employeeid;
+
+select projects.employeeid, projectname, city 
+from projects
+ left join 
+address
+on projects.employeeid=address.employeeid;
 
 
+select projects.employeeid, projectname, city 
+from projects
+inner join 
+address
+on projects.employeeid=address.employeeid;
+
+select projects.employeeid, projectname, city 
+from address
+right join 
+projects
+on projects.employeeid=address.employeeid;
+
+
+select employee.employeeid, fullname , projectname , datediff(enddate,startdate) as duration 
+from employee
+left join 
+projects
+on projects.employeeid=employee.employeeid;
+
+select E.employeeid, E.FullName, P.ProjectName, A.City
+from employee as E 
+left join
+projects as P 
+on E.employeeid=P.employeeid
+left join address as A 
+ON A.employeeid=E.employeeid;
+
+use bankingdb;
+SELECT
+    a.AccountID, a.AccountType, a.Balance,
+    t.TransactionID,
+    t.TransactionDate,
+    t.TransactionType,
+    t.Amount
+FROM Accounts a
+INNER JOIN Transactions t
+ON a.AccountID = t.AccountID;
+
+SELECT
+    a.AccountID, a.AccountType, a.Balance,
+    t.TransactionID,
+    t.TransactionDate,
+    t.Amount,
+    t.TransactionType
+FROM Accounts a
+LEFT JOIN Transactions t
+ON a.AccountID = t.AccountID;
+
+SELECT
+    a.AccountID, a.AccountType, a.Balance,
+    t.TransactionID,
+    t.TransactionDate,
+    t.TransactionType,
+    t.Amount
+FROM Accounts a
+INNER JOIN Transactions t
+ON a.AccountID = t.AccountID
+WHERE a.Balance > 30000
+ORDER BY a.Balance DESC;
 
