@@ -675,3 +675,125 @@ ON a.AccountID = t.AccountID
 WHERE a.Balance > 30000
 ORDER BY a.Balance DESC;
 
+
+use employee;
+SELECT department from employee where employeeid =1001;
+select fullname, department from employee where department="IT";
+
+
+select fullname, department from employee where department=(SELECT department from employee where employeeid =1001);
+select fullname, AGE from employee where AGE=(SELECT AGE from employee where employeeid =1003);
+select  ProjectName,datediff(EndDate,startDate) as duration from projects where datediff(EndDate,startDate)=(SELECT datediff(EndDate,startDate) from projects where employeeid =1004);
+
+select max(salary) from employee;
+
+select fullname, salary from employee 
+where salary = (select max(salary) from employee);
+
+select max(salary) from employee;
+
+select fullname, salary from employee 
+where salary < (select max(salary) from employee);
+
+ use bankingdb;
+ 
+SELECT avg(AMOUNT)
+from Transactions;
+
+SELECT * 
+FROM transactions
+where Amount >
+(
+SELECT avg(AMOUNT)
+from Transactions);
+
+SELECT
+    AccountID,
+    AccountType,
+    Balance,
+    CustomerID
+FROM Accounts
+WHERE Balance >
+(
+    SELECT AVG(Balance)
+    FROM Accounts
+)
+ORDER BY Balance DESC;
+
+SELECT
+    AccountID,
+    AccountType,
+    Balance,
+    CustomerID
+FROM Accounts
+WHERE AccountID IN
+(
+    SELECT AccountID
+    FROM Transactions
+    WHERE TransactionType = 'Deposit'
+);
+
+SELECT
+    AccountID,
+    AccountType,
+    Balance,
+    CustomerID
+FROM Accounts
+WHERE Balance =
+(
+    SELECT MAX(Balance)
+    FROM Accounts
+);
+
+use employee;
+desc employee;
+select * from employee;
+select salary 
+from employee
+where fullname ="Mary smith"
+or
+fullname = "James Brown";
+
+select fullname, salary from employee
+where salary in (select salary from employee where fullname ="Mary smith"
+or
+fullname = "James Brown")
+
+and fullname not in ("Mary Smith", "James Brown");
+
+select * from employee
+where
+age < any (select age  from employee where fullname in("Anurag Kulkarni","Mary Smith"));
+
+select * from employee
+where
+age <(select age  from employee where fullname ="Anurag Kulkarni")
+or
+age <(select age  from employee where fullname ="Mary Smith");                                               
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
