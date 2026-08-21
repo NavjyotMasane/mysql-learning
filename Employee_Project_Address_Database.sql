@@ -69,3 +69,132 @@ select * from Address;
 desc Employee;  
 desc Projects;  
 desc Address;
+
+-- ============================================
+-- CASE STATEMENT EXAMPLES - EMPLOYEE DATABASE
+-- ============================================
+-- The CASE statement lets you add conditional (if-else) logic
+-- inside a SELECT, UPDATE, or WHERE clause in SQL.
+-- Syntax:
+--   CASE
+--     WHEN condition THEN result
+--     WHEN condition THEN result
+--     ELSE result
+--   END AS alias_name
+
+USE EMPLOYEE;
+
+-- CASE 1: Classify employees by AGE (Seniority)
+SELECT EMPLOYEEID, FULLNAME,
+   CASE
+       WHEN AGE > 26 THEN 'SENIOR'
+       ELSE 'JUNIOR'
+   END AS SENIORITY
+FROM EMPLOYEE;
+
+-- CASE 2: Classify employees by SALARY (Pay Remarks)
+SELECT EMPLOYEEID, FULLNAME, 
+   CASE 
+       WHEN SALARY <=60000 THEN 'UNDER PAID'
+       ELSE 'HIGHLY PAID'
+   END AS SALARY_REMARKS
+FROM EMPLOYEE;
+   
+-- CASE 3: Increase Salary Department-Wise (UPDATE + CASE)
+-- ------------------------------------------------
+-- IT      -> +15% raise
+-- HR      -> +10% raise
+-- Others  -> +50% raise (careful: this looks like a typo,
+--            usually should be a smaller % like 0.05)
+UPDATE employee 
+SET SALARY = CASE DEPARTMENT 
+    WHEN 'IT' THEN SALARY + (SALARY*0.15)
+    WHEN 'HR' THEN SALARY + (SALARY*0.10)
+ELSE SALARY + (SALARY*0.5)
+END;
+
+-- CASE 4: Categorize employees by DEPARTMENT into broader groups
+SELECT EMPLOYEEID, FULLNAME, DEPARTMENT,
+   CASE DEPARTMENT
+       WHEN 'IT' THEN 'TECHNICAL'
+       WHEN 'HR' THEN 'ADMIN'
+       WHEN 'FINANCE' THEN 'ADMIN'
+       WHEN 'SALES' THEN 'BUSINESS'
+       ELSE 'OTHER'
+   END AS DEPT_GROUP
+FROM EMPLOYEE;
+
+-- CASE 5: Multi-condition CASE using AGE and SALARY together
+SELECT EMPLOYEEID, FULLNAME, AGE, SALARY,
+   CASE
+       WHEN AGE > 26 AND SALARY > 60000 THEN 'SENIOR - HIGHLY PAID'
+       WHEN AGE > 26 AND SALARY <= 60000 THEN 'SENIOR - UNDER PAID'
+       WHEN AGE <= 26 AND SALARY > 60000 THEN 'JUNIOR - HIGHLY PAID'
+       ELSE 'JUNIOR - UNDER PAID'
+   END AS EMPLOYEE_PROFILE
+FROM EMPLOYEE;
+
+-- CASE 6: Salary bracket classification (multiple ranges instead of just 2)
+SELECT EMPLOYEEID, FULLNAME, SALARY,
+   CASE
+       WHEN SALARY < 30000 THEN 'LOW'
+       WHEN SALARY BETWEEN 30000 AND 60000 THEN 'MEDIUM'
+       WHEN SALARY BETWEEN 60001 AND 100000 THEN 'HIGH'
+       ELSE 'VERY HIGH'
+   END AS SALARY_BRACKET
+FROM EMPLOYEE;
+
+-- CASE 7: Using CASE inside ORDER BY (custom sort order)
+-- Puts IT department first, then HR, then everyone else
+SELECT EMPLOYEEID, FULLNAME, DEPARTMENT
+FROM EMPLOYEE
+ORDER BY 
+   CASE DEPARTMENT
+       WHEN 'IT' THEN 1
+       WHEN 'HR' THEN 2
+       ELSE 3
+   END;
+
+-- CASE 8: CASE with NULL handling
+-- Useful when a column might have missing/NULL values
+SELECT EMPLOYEEID, FULLNAME, DEPARTMENT,
+   CASE
+       WHEN DEPARTMENT IS NULL THEN 'NOT ASSIGNED'
+       ELSE DEPARTMENT
+   END AS DEPARTMENT_STATUS
+FROM EMPLOYEE;
+
+-- CASE 9: Bonus calculation based on Seniority + Department (UPDATE + CASE)
+UPDATE EMPLOYEE
+SET SALARY = CASE 
+    WHEN AGE > 26 AND DEPARTMENT = 'IT' THEN SALARY + (SALARY * 0.20)
+    WHEN AGE > 26 THEN SALARY + (SALARY * 0.12)
+    WHEN DEPARTMENT = 'IT' THEN SALARY + (SALARY * 0.08)
+    ELSE SALARY + (SALARY * 0.05)
+END;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
